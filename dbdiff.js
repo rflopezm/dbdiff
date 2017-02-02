@@ -259,7 +259,11 @@ class DbDiff {
   }
 
   _columnDescription (col) {
-    var desc = col.type
+    var colType = col.type;
+    if (colType.match(/[A-Z]/g)) {
+      colType = this._quote(col.type);    
+    }
+    var desc = colType;
     if (col.default_value != null) {
       desc += ' DEFAULT ' + col.default_value
     }
